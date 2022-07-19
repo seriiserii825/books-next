@@ -1,0 +1,27 @@
+//100	Тонкий (Волосяной) Thin (Hairline)
+//200	Дополнительный светлый (Сверхсветлый) Extra Light (Ultra Light)
+//300	Светлый Light
+//400	Нормальный Normal
+//500	Средний Medium
+//600	Полужирный Semi Bold (Demi Bold)
+//700	Жирный Bold
+//800	Дополнительный жирный (Сверхжирный) Extra Bold (Ultra Bold)
+//900	Черный (Густой)Black (Heavy)
+@font-face {
+  font-family: Miamo;
+  src: url("../fonts/Miamo-Regular.woff2") format('woff2'), url("../fonts/Miamo-Regular.woff") format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Miamo Thin";
+  src: url("../fonts/Miamo-Thin.woff2") format('woff2'), url("../fonts/Miamo-Thin.woff") format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: Tailstock;
+  src: url("../fonts/TailstockDemo.woff2") format('woff2'), url("../fonts/TailstockDemo.woff") format('woff');
+  font-weight: normal;
+  font-style: normal;
+}

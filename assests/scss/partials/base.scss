@@ -1,0 +1,120 @@
+html {
+  font-size: 62.5%;
+  @media screen and (max-width: 1200px) {
+    font-size: 50%;
+  }
+}
+* {
+  outline: none;
+}
+body {
+  position: relative;
+  margin: 0;
+  font-family: Roboto, sans-serif;
+  font-size: 1.6rem;
+  color: $text-color;
+  background: lightblue;
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    display: none;
+    width: 1px;
+    height: 100%;
+    background-color: green;
+    z-index: 10000;
+  }
+  &.privacy-policy {
+    .main-header {
+      border-bottom: 1px solid #eee;
+    }
+  }
+}
+.wrapper {
+  margin: 0 auto;
+  max-width: 1920px;
+  background: white;
+  overflow: hidden;
+}
+* {
+  box-sizing: border-box;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+ul {
+  @include reset-list;
+}
+p {
+  margin: 0;
+  padding: 0;
+  @media screen and (max-width: 1200px) {
+    font-size: 2.2rem;
+  }
+}
+.hidden {
+  display: none;
+}
+.container {
+  margin: 0 auto;
+  padding: 0 15px;
+  max-width: 1326px;
+}
+input[type="submit"]:disabled {
+  cursor: not-allowed !important;
+  opacity: 0.6 !important;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+.img-responsive {
+  &.img--desktop {
+    @media screen and (max-width: 400px) {
+      display: none !important;
+    }
+  }
+  &.img--mobile {
+    display: none !important;
+    @media screen and (max-width: 400px) {
+      display: block !important;
+    }
+  }
+}
+.disable-select {
+  user-select: none;
+  /* supported by Chrome and Opera */
+  // -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+}
+// .wrapper {
+//     width: 100%;
+//     min-height: 100%;
+//     display: flex;
+//     flex-direction: column;
+//     overflow: hidden;
+//     // Прижимаем footer
+//     > main {
+//         flex: 1 1 auto;
+//     }
+//     // Фикс для слайдеров
+//     > * {
+//         min-width: 0;
+//     }
+// }

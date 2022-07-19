@@ -1,0 +1,16 @@
+.btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 3.2rem;
+  height: 4.5rem;
+  font-size: 1.6rem;
+  color: $text-color;
+  background: $accent;
+  border: 1px solid transparent;
+  transition: all .4s;
+  cursor: pointer;
+  &:hover {
+    border-color: black;
+  }
+}

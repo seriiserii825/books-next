@@ -1,0 +1,20 @@
+$scroll_bg: #00377b;
+$scroll_color: lighten($scroll_bg, 20%);
+* {
+  scrollbar-width: thin;
+  scrollbar-color: $scroll_color $scroll_bg;
+}
+
+/* для Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+  height: 12px;
+  width: 12px;
+}
+*::-webkit-scrollbar-track {
+  background: $scroll_bg;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: $scroll_color;
+  border-radius: 5px;
+  border: 3px solid $scroll_bg;
+}
