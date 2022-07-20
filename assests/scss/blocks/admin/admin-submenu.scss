@@ -1,11 +1,22 @@
 .admin-submenu {
-  padding-left: 2rem;
+  margin-top: 1rem;
+  padding: 1rem 2rem;
   font-size: 1.6rem;
   font-weight: normal;
+  background-color: #333;
   &__item {
     display: flex;
     align-items: center;
     margin: 1rem 0;
+    padding: 1rem;
+    background: #292929;
+    a {
+      position: relative;
+      transition: all .4s;
+      &:hover {
+        transform: translateX(-0.4rem);
+      }
+    }
   }
   &__icon {
     margin-right: 1rem;
