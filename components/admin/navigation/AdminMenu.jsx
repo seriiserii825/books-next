@@ -14,7 +14,7 @@ export default function AdminMenu() {
 			<AdminMenuItem
 				label='Category'
 				icon='/svg/file-plus.svg'
-				items={[{ url: '/' }, { url: '/' }]}
+				items={[{ url: '/category/create' }, { url: '/category' }]}
 			/>
 			<AdminMenuItem
 				label='Books'

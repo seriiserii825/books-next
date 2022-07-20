@@ -1,0 +1,19 @@
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  width: 100%;
+  background: white;
+  border-bottom: 1px solid #eee;
+  &__toggle {
+    flex: 0 0 2rem;
+    cursor: pointer;
+  }
+  &__profile {
+    flex: 0 0 3rem;
+    svg {
+      width: 2rem;
+    }
+  }
+}

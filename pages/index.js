@@ -1,3 +1,4 @@
+import { Context } from '../context/Context';
 import AdminLayout from '../layouts/AdminLayout';
 import styles from '../styles/Home.module.css';
 
