@@ -1,0 +1,15 @@
+.admin-layout {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  &__sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 20%;
+    height: 100%;
+  }
+  &__body {
+    padding-left: 20%;
+  }
+}
