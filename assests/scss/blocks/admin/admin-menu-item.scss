@@ -1,0 +1,23 @@
+.admin-menu-item {
+  padding: 2rem;
+  font-size: 2rem;
+  font-weight: bold;
+  &__header {
+    display: flex;
+    align-items: center;
+  }
+  &__icon {
+    margin-right: 1rem;
+  }
+  &__right {
+    margin-left: auto;
+    position: relative;
+    transition: all .2s;
+    &.admin-menu-item__right--active {
+      transform: rotate(-90deg);
+    }
+  }
+  &__title {
+    cursor: pointer;
+  }
+}

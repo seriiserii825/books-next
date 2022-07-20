@@ -1,0 +1,13 @@
+.admin-submenu {
+  padding-left: 2rem;
+  font-size: 1.6rem;
+  font-weight: normal;
+  &__item {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+  }
+  &__icon {
+    margin-right: 1rem;
+  }
+}
