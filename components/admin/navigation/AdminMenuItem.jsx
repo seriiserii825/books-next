@@ -20,14 +20,14 @@ export default function AdminMenuItem({ label, icon, url = '', items = [] }) {
 		: 'admin-menu-item__right';
 
 	let submenu_icon = (
-		<Image src='/svg/file-minus.svg' width={20} height={20} alt='' />
+		<Image src='/svg/file-minus.svg' width={14} height={20} alt='' />
 	);
 
 	return (
 		<li className='admin-menu-item'>
 			<header className='admin-menu-item__header'>
 				<div className='admin-menu-item__icon'>
-					<Image src={icon} width={30} height={30} alt='Logo' />
+					<Image src={icon} width={20} height={20} alt='Logo' />
 				</div>
 				{itemLink}
 				{!url && (
