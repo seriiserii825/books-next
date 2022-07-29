@@ -9,10 +9,17 @@ import Link from 'next/link';
 export default function Index() {
 	const router = useRouter();
 	const [data, setData] = useState([]);
+	const [sort_field, setSortField] = useState('id');
+	const [sort_direction, setSortDirection] = useState('asc');
 
-	const getData = () => {
+	const getData = (sort_field = 'id', sort_direction = 'asc') => {
 		axios
-			.get('https://localhost:8088/api/category')
+			.get(
+				'https://localhost:8088/api/category?sort_field=' +
+					sort_field +
+					'&sort_direction=' +
+					sort_direction
+			)
 			.then((res) => {
 				setData(res.data.data.reverse());
 			})
@@ -35,6 +42,11 @@ export default function Index() {
 				});
 		}
 	};
+	const sortTable = (field) => {
+		setSortDirection(sort_direction === 'asc' ? 'desc' : 'asc');
+		setSortField(field);
+		getData(field, sort_direction);
+	};
 	useEffect(() => {
 		getData();
 	}, []);
@@ -47,9 +59,42 @@ export default function Index() {
 						<table>
 							<thead>
 								<tr>
-									<th>#ID</th>
-									<th>Name</th>
-									<th>Status</th>
+									<th>
+										<a
+											href='#'
+											onClick={() => sortTable('id')}>
+											#ID
+										</a>
+										{sort_direction === 'asc' ? (
+											<span>&uarr;</span>
+										) : (
+											<span>&darr;</span>
+										)}
+									</th>
+									<th>
+										<a
+											href='#'
+											onClick={() => sortTable('name')}>
+											Name
+										</a>
+										{sort_direction === 'asc' ? (
+											<span>&uarr;</span>
+										) : (
+											<span>&darr;</span>
+										)}
+									</th>
+									<th>
+										<a
+											href='#'
+											onClick={() => sortTable('status')}>
+											Status
+										</a>
+										{sort_direction === 'asc' ? (
+											<span>&uarr;</span>
+										) : (
+											<span>&darr;</span>
+										)}
+</th>
 									<th>Action</th>
 								</tr>
 							</thead>
