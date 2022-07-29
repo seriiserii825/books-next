@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 import Form from '../../components/admin/form/Form';
 import AdminLayout from '../../layouts/AdminLayout';
 import axios from 'axios';
 
 export default function Create() {
+	const router = useRouter();
+	console.log(router, 'router')
 	const [errors, setErrors] = useState([]);
 	const [name, setName] = useState('');
 	const [status, setStatus] = useState(1);
@@ -15,7 +18,6 @@ export default function Create() {
 
 	const statusHandler = (e) => {
 		setStatus(e.target.value);
-		// console.log(status, "st");
 	};
 
 	const onSubmit = (e) => {
@@ -29,9 +31,9 @@ export default function Create() {
 		axios
 			.post('https://localhost:8088/api/category', data, config)
 			.then((res) => {
-        setErrors([]);
-        setName('');
-				console.log(res, 'res');
+				setErrors([]);
+				setName('');
+				router.push('/category');
 			})
 			.catch((err) => {
 				if (err.response.data && err.response.data.errors) {
