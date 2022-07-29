@@ -33,7 +33,6 @@ export default function AdminMenuItem({ label, icon, url = '', items = [] }) {
 		[label]
 	);
 
-	// console.log(router.pathname === url, 'router.pathname === url');
 
 	return (
 		<li className='admin-menu-item'>
@@ -61,8 +60,6 @@ export default function AdminMenuItem({ label, icon, url = '', items = [] }) {
 								router.pathname === item.url
 									? 'admin-submenu__item active'
 									: 'admin-submenu__item';
-							console.log(router.pathname, 'router.pathname');
-							console.log(item.url, 'item.url');
 							return (
 								<li className={activeClass} key={index}>
 									<div className='admin-submenu__icon'>

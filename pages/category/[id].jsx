@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Form from '../../components/admin/form/Form';
 import AdminLayout from '../../layouts/AdminLayout';
@@ -6,6 +6,7 @@ import axios from 'axios';
 
 export default function Create() {
 	const router = useRouter();
+	const id = router.query.id;
 	const [errors, setErrors] = useState([]);
 	const [name, setName] = useState('');
 	const [status, setStatus] = useState(1);
@@ -27,7 +28,7 @@ export default function Create() {
 			},
 		};
 		axios
-			.post('https://localhost:8088/api/category', data, config)
+			.put('https://localhost:8088/api/category/'+id, data, config)
 			.then((res) => {
 				setErrors([]);
 				setName('');
@@ -39,6 +40,30 @@ export default function Create() {
 				}
 			});
 	};
+
+	const getItem = () => {
+		const config = {
+			headers: {
+				'Content-type': 'application/json; charset=UTF-8',
+			},
+		};
+		axios
+			.get('https://localhost:8088/api/category/' + id, config)
+			.then((res) => {
+				const { name, status } = res.data.data;
+				setName(name);
+				setStatus(status);
+			})
+			.catch((err) => {
+				if (err.response.data && err.response.data.errors) {
+					setErrors(err.response.data.errors);
+				}
+			});
+	};
+
+	useEffect(() => {
+		getItem();
+	}, []);
 
 	return (
 		<AdminLayout>

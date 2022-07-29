@@ -3,8 +3,11 @@ import axios from 'axios';
 import AdminLayout from '../../layouts/AdminLayout';
 import Form from '../../components/admin/form/Form';
 import AdminTable from '../../components/admin/form/AdminTable';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 export default function Index() {
+	const router = useRouter();
 	const [data, setData] = useState([]);
 
 	const getData = () => {
@@ -16,6 +19,21 @@ export default function Index() {
 			.catch((err) => {
 				console.log(err.response, 'err.response');
 			});
+	};
+	const deleteItem = (id) => {
+		let confirmDelete = window.confirm(
+			'Are you sure you want to delete this item?'
+		);
+		if (confirmDelete) {
+			axios
+				.delete('https://localhost:8088/api/category/' + id)
+				.then((res) => {
+					window.location = router.pathname;
+				})
+				.catch((err) => {
+					console.log(err.response, 'err.response');
+				});
+		}
 	};
 	useEffect(() => {
 		getData();
@@ -52,10 +70,20 @@ export default function Index() {
 													</span>
 												</td>
 												<td>
-													<button className='btn btn--success'>
-														Edit
-													</button>
-													<button className='btn btn--danger'>
+													<Link
+														href={
+															`/category/` +
+															item.id
+														}>
+														<a className='btn btn--success'>
+															Edit
+														</a>
+													</Link>
+													<button
+														className='btn btn--danger'
+														onClick={() =>
+															deleteItem(item.id)
+														}>
 														Delete
 													</button>
 												</td>
