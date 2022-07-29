@@ -26,6 +26,13 @@
       width: 45%;
     }
   }
+  &__item {
+    &.form__item--error {
+      input {
+        border-color: red;
+      }
+    }
+  }
   input, select {
     width: 100%;
     height: 4rem;

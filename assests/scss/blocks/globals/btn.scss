@@ -13,4 +13,10 @@
   &:hover {
     transform: scale(0.9);
   }
+  &.btn--success {
+    background: rgb(0, 75, 0);
+  }
+  &.btn--danger {
+    background: rgb(138, 0, 0);
+  }
 }

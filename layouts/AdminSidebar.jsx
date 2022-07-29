@@ -7,7 +7,7 @@ export default function AdminSidebar() {
 			<header className='admin-sidebar__header'>
 				<h1 className='admin-sidebar__title'>Books</h1>
 			</header>
-			<AdminMenu ></AdminMenu>
+			<AdminMenu/>
 		</div>
 	);
 }
