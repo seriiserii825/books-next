@@ -12,7 +12,7 @@ export default function Index() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
-  const [sort_field, setSortField] = useState("id");
+  const [sort_field, setSortField] = useState("updated_at");
   const [sort_direction, setSortDirection] = useState("asc");
   const [search, setSearch] = useState("");
 
