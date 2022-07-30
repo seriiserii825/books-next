@@ -13,20 +13,26 @@ export default function Index() {
 	const [data, setData] = useState([]);
 	const [sort_field, setSortField] = useState('id');
 	const [sort_direction, setSortDirection] = useState('asc');
+	const [search, setSearch] = useState('');
 
-	const getData = (sort_field = 'updated_at', sort_direction = 'asc') => {
+	const getData = (
+		sort_field = 'updated_at',
+		sort_direction = 'asc',
+		search = ''
+	) => {
 		axios
 			.get(
 				'/category?sort_field=' +
 					sort_field +
 					'&sort_direction=' +
-					sort_direction
+					sort_direction +
+					'&search=' +
+					search
 			)
 			.then((res) => {
 				setData(res.data.data.reverse());
-				setTimeout(() => {
-					setLoading(false);
-				}, 400);
+				setLoading(false);
+				setInputFocus(true);
 			})
 			.catch((err) => {
 				console.log(err.response, 'err.response');
@@ -52,7 +58,6 @@ export default function Index() {
 		setLoading(true);
 		setSortDirection(sort_direction === 'asc' ? 'desc' : 'asc');
 		setSortField(field);
-		getData(field, sort_direction);
 	};
 	const formatDate = (date) => {
 		let options = {
@@ -68,18 +73,31 @@ export default function Index() {
 		return new Intl.DateTimeFormat('en', options).format(new Date(date));
 	};
 
+	const searchHandler = (e) => {
+		setSearch(e.target.value);
+		setLoading(true);
+	};
+
 	useEffect(() => {
 		setLoading(true);
-		getData();
-	}, []);
+		getData(sort_field, sort_direction, search);
+	}, [sort_field, sort_direction, search]);
 
 	return (
 		<AdminLayout>
 			<Form label='List Categories'>
-				{loading ? (
-					<Preloader />
-				) : (
-					<AdminTable>
+				<AdminTable>
+					<div className='search'>
+						<label htmlFor='search'>Search:</label>
+						<input
+							type='text'
+							value={search}
+							onChange={searchHandler}
+						/>
+					</div>
+					{loading ? (
+						<Preloader />
+					) : (
 						<div>
 							<table>
 								<thead>
@@ -190,8 +208,8 @@ export default function Index() {
 								</tbody>
 							</table>
 						</div>
-					</AdminTable>
-				)}
+					)}
+				</AdminTable>
 			</Form>
 		</AdminLayout>
 	);

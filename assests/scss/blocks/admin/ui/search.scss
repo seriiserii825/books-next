@@ -1,0 +1,14 @@
+.search {
+  display: flex;
+  justify-content: center;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 2rem 0;
+  label {
+    margin-right: 2rem;
+    font-weight: bold;
+  }
+  input {
+    width: 50%;
+  }
+}
