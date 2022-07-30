@@ -20,4 +20,10 @@
   &__main {
     padding: 3rem;
   }
+  &__wrap {
+    display: flex;
+  }
+  &__item {
+    flex: 0 0 20rem;
+  }
 }
