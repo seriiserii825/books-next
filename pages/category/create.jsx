@@ -21,13 +21,8 @@ export default function Create() {
 	const onSubmit = (e) => {
 		e.preventDefault();
 		const data = { name, status };
-		const config = {
-			headers: {
-				'Content-type': 'application/json; charset=UTF-8',
-			},
-		};
 		axios
-			.post('https://localhost:8088/api/category', data, config)
+			.post('/category', data)
 			.then((res) => {
 				setErrors([]);
 				setName('');

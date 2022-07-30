@@ -14,10 +14,10 @@ export default function Index() {
 	const [sort_field, setSortField] = useState('id');
 	const [sort_direction, setSortDirection] = useState('asc');
 
-	const getData = (sort_field = 'id', sort_direction = 'asc') => {
+	const getData = (sort_field = 'updated_at', sort_direction = 'asc') => {
 		axios
 			.get(
-				'https://localhost:8088/api/category?sort_field=' +
+				'/category?sort_field=' +
 					sort_field +
 					'&sort_direction=' +
 					sort_direction
@@ -39,7 +39,7 @@ export default function Index() {
 		);
 		if (confirmDelete) {
 			axios
-				.delete('https://localhost:8088/api/category/' + id)
+				.delete('/category/' + id)
 				.then((res) => {
 					window.location = router.pathname;
 				})
@@ -54,6 +54,20 @@ export default function Index() {
 		setSortField(field);
 		getData(field, sort_direction);
 	};
+	const formatDate = (date) => {
+		let options = {
+			year: 'numeric',
+			month: 'long',
+			day: 'numeric',
+			hour: 'numeric',
+			minute: 'numeric',
+			second: 'numeric',
+			hour12: false,
+		};
+
+		return new Intl.DateTimeFormat('en', options).format(new Date(date));
+	};
+
 	useEffect(() => {
 		setLoading(true);
 		getData();
@@ -110,48 +124,68 @@ export default function Index() {
 												<span>&darr;</span>
 											)}
 										</th>
+										<th>
+											<a
+												href='#'
+												onClick={() =>
+													sortTable('updated_at')
+												}>
+												Updated At
+											</a>
+											{sort_direction === 'asc' ? (
+												<span>&uarr;</span>
+											) : (
+												<span>&darr;</span>
+											)}
+										</th>
 										<th>Action</th>
 									</tr>
 								</thead>
 								<tbody>
 									{data.length
-										? data.map((item, index) => (
-												<tr key={item.id}>
-													<td>{item.id}</td>
-													<td>{item.name}</td>
-													<td>
-														<span
-															className={
-																item.status ===
-																1
-																	? 'badge badge--success'
-																	: 'badge badge--danger'
-															}>
-															{item.status}
-														</span>
-													</td>
-													<td>
-														<Link
-															href={
-																`/category/` +
-																item.id
-															}>
-															<a className='btn btn--success'>
-																Edit
-															</a>
-														</Link>
-														<button
-															className='btn btn--danger'
-															onClick={() =>
-																deleteItem(
+										? data.map((item, index) => {
+												let updated_at = formatDate(
+													item.updated_at
+												);
+												return (
+													<tr key={item.id}>
+														<td>{item.id}</td>
+														<td>{item.name}</td>
+														<td>
+															<span
+																className={
+																	item.status ===
+																	1
+																		? 'badge badge--success'
+																		: 'badge badge--danger'
+																}>
+																{item.status}
+															</span>
+														</td>
+														<td>{updated_at}</td>
+														<td>
+															<Link
+																href={
+																	`/category/` +
 																	item.id
-																)
-															}>
-															Delete
-														</button>
-													</td>
-												</tr>
-										  ))
+																}>
+																<a className='btn btn--success'>
+																	Edit
+																</a>
+															</Link>
+															<button
+																className='btn btn--danger'
+																onClick={() =>
+																	deleteItem(
+																		item.id
+																	)
+																}>
+																Delete
+															</button>
+														</td>
+													</tr>
+												);
+										  })
 										: null}
 								</tbody>
 							</table>
