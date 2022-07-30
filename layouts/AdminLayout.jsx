@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
-import { Context } from '../context/Context';
+import { useRouter } from 'next/router';
 import { CustomContext } from '../context/Context';
 import AdminHeader from './AdminHeader';
 import AdminSidebar from './AdminSidebar';
 
 export default function AdminLayout({ children }) {
+	const router = useRouter();
 	let { isVisibleSidebar } = useContext(CustomContext);
 
 	let sidebar_class = isVisibleSidebar
