@@ -20,14 +20,19 @@ export default function Create() {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		const data = { image };
+		let formData = new FormData();
+
+		for (let i = 0; i < files.length; i++) {
+			formData.append(`files[${i}]`, files[i]);
+		}
+
 		axios
-			.post('/media', data)
-			.then((res) => {})
-			.catch((err) => {
-				if (err.response.data && err.response.data.errors) {
-					setErrors(err.response.data.errors);
-				}
+			.post('/media', formData)
+			.then((res) => {
+				console.log(res, 'res');
+			})
+			.catch((error) => {
+				console.log(error.response, 'error.response');
 			});
 	};
 
