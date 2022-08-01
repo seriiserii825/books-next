@@ -1,77 +1,75 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/router";
-import Form from "../../components/admin/form/Form";
-import AdminLayout from "../../layouts/AdminLayout";
-import axios from "axios";
+import React, { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/router';
+import Form from '../../components/admin/form/Form';
+import AdminLayout from '../../layouts/AdminLayout';
+import axios from 'axios';
 
 export default function Create() {
-  const imageRef = useRef();
-  const [image, setImage] = useState("");
-  const [image_url, setImageUrl] = useState("");
+	const imageRef = useRef();
+	const [files, setFiles] = useState('');
+	const [images_url, setImagesUrl] = useState('');
 
-  const imageHandler = (e) => {
-    setImage(e.target.value);
-  };
+	const filesHandler = (e) => {
+		const files = Array.from(imageRef.current.files);
+		setFiles(files);
+		const images = files.map((file) => {
+			return file.name;
+		});
+		setImagesUrl(images);
+	};
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    const data = { image };
-    axios
-      .post("/media", data)
-      .then((res) => {})
-      .catch((err) => {
-        if (err.response.data && err.response.data.errors) {
-          setErrors(err.response.data.errors);
-        }
-      });
-  };
-  const previewImage = () => {
-    let oFReader = new FileReader();
-    console.log(imageRef, "imageRef.");
-    oFReader.readAsDataURL(imageRef.current.files[0]);
+	const onSubmit = (e) => {
+		e.preventDefault();
+		const data = { image };
+		axios
+			.post('/media', data)
+			.then((res) => {})
+			.catch((err) => {
+				if (err.response.data && err.response.data.errors) {
+					setErrors(err.response.data.errors);
+				}
+			});
+	};
 
-    oFReader.onload = function (oFREvent) {
-      setImageUrl(oFREvent.target.result);
-    };
-  };
-
-  useEffect(() => {
-    if (image) {
-      previewImage();
-    }
-  }, [image]);
-
-  return (
-    <AdminLayout>
-      <Form label="Add Image">
-        <div className="form__flex">
-          <div className="form__image">
-            <div className="form__icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50">
-                <path
-                  style={{
-                    stroke: "none",
-                    fill: "#000",
-                    fillOpacity: 1,
-                  }}
-                  d="M10.293 17.832a3.123 3.123 0 0 0 4.418 0l7.164-7.16v23.703a3.124 3.124 0 1 0 6.25 0V10.672l7.164 7.168a3.13 3.13 0 0 0 4.422 0 3.126 3.126 0 0 0 0-4.418L27.21.922A3.093 3.093 0 0 0 25 0c-.8 0-1.602.305-2.207.914l-12.5 12.504a3.114 3.114 0 0 0 0 4.414Zm36.582 16.543H31.25a6.248 6.248 0 0 1-6.25 6.25 6.248 6.248 0 0 1-6.25-6.25H3.125A3.124 3.124 0 0 0 0 37.5v9.375A3.124 3.124 0 0 0 3.125 50h43.75A3.124 3.124 0 0 0 50 46.875V37.5a3.124 3.124 0 0 0-3.125-3.125Zm-4.688 10.156a2.35 2.35 0 0 1-2.343-2.343 2.35 2.35 0 0 1 2.343-2.344 2.35 2.35 0 0 1 2.344 2.343 2.35 2.35 0 0 1-2.343 2.344Zm0 0"
-                />
-              </svg>
-            </div>
-            <input
-              onChange={imageHandler}
-              type="file"
-              placeholder="Enter image..."
-              value={image}
-              ref={imageRef}
-            />
-            {image_url && <img width="100" className="form__img" src={image_url} alt="" />}
-          </div>
-        </div>
-        <button className="btn" onClick={onSubmit}>
-          Submit
-        </button>
-      </Form>
-    </AdminLayout>
-  );
+	return (
+		<AdminLayout>
+			<Form label='Add Image'>
+				<div className='form__flex'>
+					<div className='form__image'>
+						<div className='form__icon'>
+							<svg
+								xmlns='http://www.w3.org/2000/svg'
+								width='50'
+								height='50'>
+								<path
+									style={{
+										stroke: 'none',
+										fill: '#000',
+										fillOpacity: 1,
+									}}
+									d='M10.293 17.832a3.123 3.123 0 0 0 4.418 0l7.164-7.16v23.703a3.124 3.124 0 1 0 6.25 0V10.672l7.164 7.168a3.13 3.13 0 0 0 4.422 0 3.126 3.126 0 0 0 0-4.418L27.21.922A3.093 3.093 0 0 0 25 0c-.8 0-1.602.305-2.207.914l-12.5 12.504a3.114 3.114 0 0 0 0 4.414Zm36.582 16.543H31.25a6.248 6.248 0 0 1-6.25 6.25 6.248 6.248 0 0 1-6.25-6.25H3.125A3.124 3.124 0 0 0 0 37.5v9.375A3.124 3.124 0 0 0 3.125 50h43.75A3.124 3.124 0 0 0 50 46.875V37.5a3.124 3.124 0 0 0-3.125-3.125Zm-4.688 10.156a2.35 2.35 0 0 1-2.343-2.343 2.35 2.35 0 0 1 2.343-2.344 2.35 2.35 0 0 1 2.344 2.343 2.35 2.35 0 0 1-2.343 2.344Zm0 0'
+								/>
+							</svg>
+						</div>
+						<input
+							onChange={filesHandler}
+							type='file'
+							placeholder='Enter image...'
+							ref={imageRef}
+							multiple
+						/>
+						<ul className='form__list'>
+							{images_url &&
+								images_url.map((image_url) => {
+									return <li key={image_url}>{image_url}</li>;
+								})}
+						</ul>
+					</div>
+					<button className='btn' onClick={onSubmit}>
+						Submit
+					</button>
+				</div>
+			</Form>
+		</AdminLayout>
+	);
 }

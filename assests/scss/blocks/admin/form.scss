@@ -52,21 +52,30 @@
       font-size: 1.6rem;
     }
   }
-  input[type="file"] {
-    opacity: 0;
-    cursor: pointer;
-  }
   &__image {
     position: relative;
+    display: flex;
+    align-items: center;
+    input[type="file"] {
+      opacity: 0;
+      cursor: pointer;
+      width: 10rem;
+    }
   }
   &__icon {
     position: absolute;
-    top: 0;
+    top: 1rem;
     left: 2rem;
     display: block;
   }
   &__img {
     display: inline-block;
-    margin-top: 4rem;
+  }
+  &__list {
+    li {
+      margin-bottom: 1rem;
+      padding: 1rem;
+      border: 1px solid #ccc;
+    }
   }
 }
