@@ -17,9 +17,9 @@ export default function AdminMenu() {
 				items={[{ url: '/category/create' }, { url: '/category' }]}
 			/>
 			<AdminMenuItem
-				label='Books'
+				label='Book'
 				icon='/svg/book.svg'
-				items={[{ url: '/' }, { url: '/' }]}
+				items={[{ url: '/book/create' }, { url: '/book' }]}
 			/>
 			<AdminMenuItem
 				label='Users'

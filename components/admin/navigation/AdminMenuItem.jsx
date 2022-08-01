@@ -53,7 +53,7 @@ export default function AdminMenuItem({ label, icon, url = '', items = [] }) {
 				)}
 			</header>
 			{isActive && items.length && (
-				<div className='admin-menu-icon__body'>
+				<div className='admin-menu-item__body'>
 					<ul className='admin-submenu'>
 						{items.map((item, index) => {
 							const activeClass =
