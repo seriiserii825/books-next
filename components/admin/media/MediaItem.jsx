@@ -3,7 +3,7 @@ import React from 'react';
 
 export default function MediaItem(props) {
 	const server_url = process.env.NEXT_PUBLIC_SERVER_URL;
-	const { url, id } = props;
+	const { url, id, name, onDelete } = props;
 
 	const deleteItem = (id) => {
 		let agree = window.confirm(
@@ -13,7 +13,7 @@ export default function MediaItem(props) {
 			axios
 				.delete('/media/' + id)
 				.then((res) => {
-					window.location = window.location;
+					onDelete();
 				})
 				.catch((err) => {
 					console.log(err.response, 'err.response');
@@ -29,7 +29,7 @@ export default function MediaItem(props) {
 				height={100}
 				alt='image'
 			/>
-			<h4 className='media__title'>{url}</h4>
+			<h4 className='media__title'>{name}</h4>
 		</div>
 	);
 }

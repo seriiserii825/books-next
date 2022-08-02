@@ -42,7 +42,13 @@ function Media() {
 			<div className='media__body'>
 				<div className='media__wrap'>
 					{data.map((item, index) => {
-						return <MediaItem key={item.id} {...item} />;
+						return (
+							<MediaItem
+								key={item.id}
+								{...item}
+								onDelete={() => getData()}
+							/>
+						);
 					})}
 				</div>
 			</div>

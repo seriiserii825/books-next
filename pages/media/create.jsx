@@ -5,6 +5,7 @@ import AdminLayout from '../../layouts/AdminLayout';
 import axios from 'axios';
 
 export default function Create() {
+	const router = useRouter();
 	const imageRef = useRef();
 	const [files, setFiles] = useState('');
 	const [images_url, setImagesUrl] = useState('');
@@ -29,7 +30,7 @@ export default function Create() {
 		axios
 			.post('/media', formData)
 			.then((res) => {
-				console.log(res, 'res');
+				router.push('/media');
 			})
 			.catch((error) => {
 				console.log(error.response, 'error.response');
