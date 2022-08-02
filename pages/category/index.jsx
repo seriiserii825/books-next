@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Preloader from "../../components/animation/Preloader";
 import { Transition, animated } from "react-spring";
+import formatDate from '../../helpers/format-date';
 
 export default function Index() {
   const router = useRouter();
@@ -58,19 +59,6 @@ export default function Index() {
     setLoading(true);
     setSortDirection(sort_direction === "asc" ? "desc" : "asc");
     setSortField(field);
-  };
-  const formatDate = (date) => {
-    let options = {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "numeric",
-      minute: "numeric",
-      second: "numeric",
-      hour12: false,
-    };
-
-    return new Intl.DateTimeFormat("en", options).format(new Date(date));
   };
 
   const searchHandler = (e) => {
