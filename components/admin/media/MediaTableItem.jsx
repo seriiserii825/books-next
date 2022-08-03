@@ -11,23 +11,16 @@ export default function MediaTableItem({
 	onDelete,
 }) {
 	const server_url = process.env.NEXT_PUBLIC_SERVER_URL;
-	const router = useRouter();
 
 	const deleteItem = (id) => {
-		let agree = window.confirm(
-			'Are you sure you want to delete this item?'
-		);
-		if (agree) {
-			axios
-				.delete('/media/' + id)
-				.then((res) => {
-					onDelete();
-					router.push('/media');
-				})
-				.catch((err) => {
-					console.log(err.response, 'err.response');
-				});
-		}
+		axios
+			.delete('/media/' + id)
+			.then((res) => {
+				onDelete();
+			})
+			.catch((err) => {
+				console.log(err.response, 'err.response');
+			});
 	};
 
 	return (

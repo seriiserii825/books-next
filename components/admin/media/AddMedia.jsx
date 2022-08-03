@@ -8,7 +8,7 @@ export default function AddMedia() {
 	const imageRef = useRef();
 	const [files, setFiles] = useState('');
 	const [images_url, setImagesUrl] = useState('');
-	const [setIsVisibleAdminMedia] = useContext(CustomContext);
+	const {setIsVisibleAdminMedia} = useContext(CustomContext);
 
 	const filesHandler = (e) => {
 		const files = Array.from(imageRef.current.files);
@@ -30,7 +30,7 @@ export default function AddMedia() {
 		axios
 			.post('/media', formData)
 			.then((res) => {
-				router.push('/media');
+				setIsVisibleAdminMedia(false);
 			})
 			.catch((error) => {
 				console.log(error.response, 'error.response');

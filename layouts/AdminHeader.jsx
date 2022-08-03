@@ -31,11 +31,9 @@ export default function AdminHeader() {
 			</div>
 			<div className='admin-header__buttons'>
 				{addMediaBtn()}
-				{router.pathname === '/media/create' && (
-					<Link href='/media'>
-						<a className='btn'>View Media</a>
-					</Link>
-				)}
+				<Link href='/media'>
+					<a className='btn'>View Media</a>
+				</Link>
 			</div>
 			<div className='admin-header__profile'>
 				<Link href='/'>

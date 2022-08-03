@@ -11,7 +11,6 @@ function MediaTable() {
 			.get('/media?search=' + search)
 			.then((res) => {
 				setData(res.data.data.reverse());
-				console.log(res.data.data, 'res.data.data');
 			})
 			.catch((err) => {
 				console.log(err.response, 'err.response');
@@ -45,7 +44,6 @@ function MediaTable() {
 					<tbody>
 						{data.length ? (
 							data.map((item, index) => {
-								console.log(item, 'item');
 								return (
 									<MediaTableItem
 										key={index}
