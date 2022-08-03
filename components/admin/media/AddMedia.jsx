@@ -1,14 +1,14 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useContext } from 'react';
 import { useRouter } from 'next/router';
-import Form from '../../components/admin/form/Form';
 import axios from 'axios';
-import AdminLayout from '../../layouts/AdminLayout';
+import { CustomContext } from './../../../context/Context';
 
-export default function Create() {
+export default function AddMedia() {
 	const router = useRouter();
 	const imageRef = useRef();
 	const [files, setFiles] = useState('');
 	const [images_url, setImagesUrl] = useState('');
+	const [setIsVisibleAdminMedia] = useContext(CustomContext);
 
 	const filesHandler = (e) => {
 		const files = Array.from(imageRef.current.files);
@@ -38,8 +38,8 @@ export default function Create() {
 	};
 
 	return (
-		<AdminLayout>
-			<Form label='Add Image'>
+		<div className='add-media'>
+			<div className='add-media__body'>
 				<div className='form__flex'>
 					<div className='form__image'>
 						<div className='form__icon'>
@@ -74,8 +74,13 @@ export default function Create() {
 					<button className='btn' onClick={onSubmit}>
 						Submit
 					</button>
+					<button
+						className='btn btn--danger'
+						onClick={() => setIsVisibleAdminMedia(false)}>
+						Close
+					</button>
 				</div>
-			</Form>
-		</AdminLayout>
+			</div>
+		</div>
 	);
 }

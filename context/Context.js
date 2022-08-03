@@ -4,6 +4,7 @@ export const CustomContext = createContext();
 
 export const Context = (props) => {
 	const [isVisibleSidebar, setIsVisibleSidebar] = useState(true);
+	const [isVisibleAdminMedia, setIsVisibleAdminMedia] = useState(false);
 
 	const toggleSidebar = () => {
 		setIsVisibleSidebar(!isVisibleSidebar);
@@ -12,6 +13,8 @@ export const Context = (props) => {
 	const value = {
 		isVisibleSidebar,
 		toggleSidebar,
+		isVisibleAdminMedia,
+		setIsVisibleAdminMedia,
 	};
 
 	return (

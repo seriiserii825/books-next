@@ -6,18 +6,15 @@ import { useRouter } from 'next/router';
 
 export default function AdminHeader() {
 	const router = useRouter();
-	const { toggleSidebar } = useContext(CustomContext);
+	const { toggleSidebar, setIsVisibleAdminMedia } = useContext(CustomContext);
 	const addMediaBtn = () => {
-		if (
-			router.pathname === '/media' ||
-			router.pathname !== '/media/create'
-		) {
-			return (
-				<Link href='/media/create'>
-					<a className='btn btn--success'>Add Media</a>
-				</Link>
-			);
-		}
+		return (
+			<button
+				onClick={() => setIsVisibleAdminMedia(true)}
+				className='btn btn--success'>
+				Add Media
+			</button>
+		);
 	};
 
 	return (

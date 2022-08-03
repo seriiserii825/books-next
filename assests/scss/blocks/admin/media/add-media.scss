@@ -1,0 +1,21 @@
+.add-media {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+  &__body {
+    position: relative;
+    width: 40%;
+    padding: 3rem;
+    background-color: #fff;
+    .form__flex {
+      margin-bottom: 0;
+    }
+  }
+}

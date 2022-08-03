@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
-import { useRouter } from 'next/router';
 import { CustomContext } from '../context/Context';
 import AdminHeader from './AdminHeader';
 import AdminSidebar from './AdminSidebar';
+import AddMedia from '../components/admin/media/AddMedia';
 
 export default function AdminLayout({ children }) {
-	const router = useRouter();
-	let { isVisibleSidebar } = useContext(CustomContext);
+	let { isVisibleSidebar, isVisibleAdminMedia } =
+		useContext(CustomContext);
 
 	let sidebar_class = isVisibleSidebar
 		? 'admin-layout__sidebar'
@@ -27,6 +27,7 @@ export default function AdminLayout({ children }) {
 					<div className='admin-layout__main'>{children}</div>
 				</div>
 			</div>
+			{isVisibleAdminMedia && <AddMedia />}
 		</div>
 	);
 }
