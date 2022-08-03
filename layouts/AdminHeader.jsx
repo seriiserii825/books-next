@@ -7,6 +7,18 @@ import { useRouter } from 'next/router';
 export default function AdminHeader() {
 	const router = useRouter();
 	const { toggleSidebar } = useContext(CustomContext);
+	const addMediaBtn = () => {
+		if (
+			router.pathname === '/media' ||
+			router.pathname !== '/media/create'
+		) {
+			return (
+				<Link href='/media/create'>
+					<a className='btn btn--success'>Add Media</a>
+				</Link>
+			);
+		}
+	};
 
 	return (
 		<header className='admin-header'>
@@ -21,11 +33,7 @@ export default function AdminHeader() {
 				</svg>
 			</div>
 			<div className='admin-header__buttons'>
-				{router.pathname === '/media' && (
-					<Link href='/media/create'>
-						<a className='btn btn--success'>Add Media</a>
-					</Link>
-				)}
+				{addMediaBtn()}
 				{router.pathname === '/media/create' && (
 					<Link href='/media'>
 						<a className='btn'>View Media</a>

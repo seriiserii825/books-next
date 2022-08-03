@@ -9,10 +9,10 @@ export default function MediaItem(props) {
 	const toggleActive = () => {
 		if (isActive) {
 			setIsActive(false);
-			onChoose(full_url, true);
+			onChoose(url, true);
 		} else {
 			setIsActive(true);
-			onChoose(full_url, false);
+			onChoose(url, false);
 		}
 	};
 

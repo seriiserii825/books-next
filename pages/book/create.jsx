@@ -29,7 +29,7 @@ export default function Create() {
 		setDescription(e.target.value);
 	};
 	const amountHandler = (e) => {
-		setAmount(e.target.value);
+		setAmount(parseInt(e.target.value));
 	};
 	const coverImageHandler = (e) => {
 		document.body.style.overflow = 'hidden';
@@ -49,13 +49,21 @@ export default function Create() {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		const data = { name, status };
+		console.log(amount, 'amount');
+		const data = {
+			name,
+			category_id,
+			description,
+			amount,
+			cover_image,
+			author,
+			status,
+		};
 		axios
-			.post('/category', data)
+			.post('/book', data)
 			.then((res) => {
-				setErrors([]);
-				setName('');
-				router.push('/category');
+				console.log(res, 'res');
+				router.push('/book');
 			})
 			.catch((err) => {
 				if (err.response.data && err.response.data.errors) {
@@ -69,7 +77,7 @@ export default function Create() {
 			.get('/book_create')
 			.then((res) => {
 				setCategories(res.data.categories);
-				setCategoryId(res.data.categories[0]._id);
+				setCategoryId(res.data.categories[0].id);
 			})
 			.catch((err) => {
 				console.log(err, 'er');
@@ -89,7 +97,7 @@ export default function Create() {
 			{showMedia && (
 				<Media onClose={() => closeMedia()} onImages={setMediaImages} />
 			)}
-			<Form label='Add Category'>
+			<Form label='Add Book'>
 				<div className='form__flex'>
 					<div
 						className={

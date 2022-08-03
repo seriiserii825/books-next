@@ -85,7 +85,7 @@ export default function Index() {
 
   return (
     <AdminLayout>
-      <Form label="List Categories">
+      <Form label="List Books">
         <AdminTable>
           <div className="search">
             <label htmlFor="search">Search:</label>
