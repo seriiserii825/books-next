@@ -29,7 +29,7 @@ export default function Create() {
 		setDescription(e.target.value);
 	};
 	const amountHandler = (e) => {
-		setAmount(parseInt(e.target.value));
+		setAmount(e.target.value);
 	};
 	const coverImageHandler = (e) => {
 		document.body.style.overflow = 'hidden';
@@ -49,12 +49,11 @@ export default function Create() {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		console.log(amount, 'amount');
 		const data = {
 			name,
 			category_id,
 			description,
-			amount,
+			amount: parseInt(amount),
 			cover_image,
 			author,
 			status,
@@ -62,7 +61,6 @@ export default function Create() {
 		axios
 			.post('/book', data)
 			.then((res) => {
-				console.log(res, 'res');
 				router.push('/book');
 			})
 			.catch((err) => {
@@ -76,8 +74,10 @@ export default function Create() {
 		axios
 			.get('/book_create')
 			.then((res) => {
-				setCategories(res.data.categories);
-				setCategoryId(res.data.categories[0].id);
+				setCategories(
+					() => res.data.categories,
+					setCategoryId(res.data.categories[0].id)
+				);
 			})
 			.catch((err) => {
 				console.log(err, 'er');
@@ -141,7 +141,7 @@ export default function Create() {
 								))}
 						</select>
 						<p className='text-error'>
-							{errors.name && errors.name}
+							{errors.category_id && errors.category_id}
 						</p>
 					</div>
 				</div>
