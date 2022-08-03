@@ -1,161 +1,231 @@
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import Form from "../../components/admin/form/Form";
-import AdminLayout from "../../layouts/AdminLayout";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import Form from '../../components/admin/form/Form';
+import AdminLayout from '../../layouts/AdminLayout';
+import axios from 'axios';
+import Media from '../../components/admin/media/Media';
 
 export default function Create() {
-  const router = useRouter();
-  const [errors, setErrors] = useState([]);
-  const [name, setName] = useState("");
-  const [categories, setCategories] = useState([]);
-  const [category_id, setCategoryId] = useState("");
-  const [description, setDescription] = useState("");
-  const [amount, setAmount] = useState("");
-  const [status, setStatus] = useState(1);
+	const router = useRouter();
+	const [errors, setErrors] = useState([]);
+	const [showMedia, setShowMedia] = useState(false);
+	const [name, setName] = useState('');
+	const [categories, setCategories] = useState([]);
+	const [category_id, setCategoryId] = useState('');
+	const [description, setDescription] = useState('');
+	const [amount, setAmount] = useState('');
+	const [cover_image, setCoverImage] = useState('');
+	const [media_images, setMediaImages] = useState([]);
+	const [author, setAuthor] = useState('');
+	const [status, setStatus] = useState(1);
 
-  const nameHandler = (e) => {
-    setName(e.target.value);
-  };
-  const categoriesHandler = (e) => {
-    setCategoryId(e.target.value);
-  };
-  const descriptionHandler = (e) => {
-    setDescription(e.target.value);
-  };
-  const amountHandler = (e) => {
-    setAmount(e.target.value);
-  };
-  const statusHandler = (e) => {
-    setStatus(e.target.value);
-  };
+	const nameHandler = (e) => {
+		setName(e.target.value);
+	};
+	const categoriesHandler = (e) => {
+		setCategoryId(e.target.value);
+	};
+	const descriptionHandler = (e) => {
+		setDescription(e.target.value);
+	};
+	const amountHandler = (e) => {
+		setAmount(e.target.value);
+	};
+	const coverImageHandler = (e) => {
+		document.body.style.overflow = 'hidden';
+		setShowMedia(true);
+	};
+	const authorHandler = (e) => {
+		setAuthor(e.target.value);
+	};
+	const statusHandler = (e) => {
+		setStatus(e.target.value);
+	};
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    const data = { name, status };
-    axios
-      .post("/category", data)
-      .then((res) => {
-        setErrors([]);
-        setName("");
-        router.push("/category");
-      })
-      .catch((err) => {
-        if (err.response.data && err.response.data.errors) {
-          setErrors(err.response.data.errors);
-        }
-      });
-  };
+	const closeMedia = () => {
+		document.body.style.overflow = 'initial';
+		setShowMedia(false);
+	};
 
-  let getBooks = () => {
-    axios
-      .get("/book_create")
-      .then((res) => {
-        setCategories(res.data.categories);
-        setCategoryId(res.data.categories[0]._id);
-      })
-      .catch((err) => {
-        console.log(err, "er");
-      });
-  };
+	const onSubmit = (e) => {
+		e.preventDefault();
+		const data = { name, status };
+		axios
+			.post('/category', data)
+			.then((res) => {
+				setErrors([]);
+				setName('');
+				router.push('/category');
+			})
+			.catch((err) => {
+				if (err.response.data && err.response.data.errors) {
+					setErrors(err.response.data.errors);
+				}
+			});
+	};
 
-  useEffect(() => {
-    getBooks();
-  }, []);
+	let getBooks = () => {
+		axios
+			.get('/book_create')
+			.then((res) => {
+				setCategories(res.data.categories);
+				setCategoryId(res.data.categories[0]._id);
+			})
+			.catch((err) => {
+				console.log(err, 'er');
+			});
+	};
 
-  return (
-    <AdminLayout>
-      <Form label="Add Category">
-        <div className="form__flex">
-          <div
-            className={
-              errors.name ? "form__item form__item--error" : "form__item"
-            }
-          >
-            <label className="form__label" htmlFor="name">
-              Name
-            </label>
-            <input
-              onChange={nameHandler}
-              type="text"
-              placeholder="Enter name..."
-              value={name}
-            />
-            <p className="text-error">{errors.name && errors.name}</p>
-          </div>
-          <div
-            className={
-              errors.name ? "form__item form__item--error" : "form__item"
-            }
-          >
-            <label className="form__label" htmlFor="categories">
-              Categories
-            </label>
-            <select
-              id="categories"
-              value={category_id}
-              onChange={categoriesHandler}
-            >
-              {categories &&
-                categories.map((category) => (
-                  <option key={category.id} value={category.id}>
-                    {category.name}
-                  </option>
-                ))}
-            </select>
-            <p className="text-error">{errors.name && errors.name}</p>
-          </div>
-        </div>
-        <div className="form__flex">
-          <div
-            className={
-              errors.name ? "form__item form__item--error" : "form__item"
-            }
-          >
-            <label className="form__label" htmlFor="description">
-              Description
-            </label>
-            <textarea
-              onChange={descriptionHandler}
-              value={description}
-            ></textarea>
-            <p className="text-error">
-              {errors.description && errors.description}
-            </p>
-          </div>
-          <div
-            className={
-              errors.name ? "form__item form__item--error" : "form__item"
-            }
-          >
-            <label className="form__label" htmlFor="amount">
-              Amount
-            </label>
-            <input onChange={amountHandler} value={amount} />
-            <p className="text-error">{errors.amount && errors.amount}</p>
-          </div>
-        </div>
+	useEffect(() => {
+		getBooks();
+	}, []);
 
-        <div className="form__flex">
-          <div className="form__item">
-            <label className="form__label" htmlFor="status">
-              Status
-            </label>
-            <select
-              name="status"
-              id="status"
-              value={status}
-              onChange={statusHandler}
-            >
-              <option value={1}>Active</option>
-              <option value={0}>Inactive</option>
-            </select>
-          </div>
-        </div>
-        <button className="btn" onClick={onSubmit}>
-          Submit
-        </button>
-      </Form>
-    </AdminLayout>
-  );
+	useEffect(() => {
+		setCoverImage(media_images[0]);
+	}, [media_images]);
+
+	return (
+		<AdminLayout>
+			{showMedia && (
+				<Media onClose={() => closeMedia()} onImages={setMediaImages} />
+			)}
+			<Form label='Add Category'>
+				<div className='form__flex'>
+					<div
+						className={
+							errors.name
+								? 'form__item form__item--error'
+								: 'form__item'
+						}>
+						<label className='form__label' htmlFor='name'>
+							Name
+						</label>
+						<input
+							onChange={nameHandler}
+							type='text'
+							placeholder='Enter name...'
+							value={name}
+						/>
+						<p className='text-error'>
+							{errors.name && errors.name}
+						</p>
+					</div>
+					<div
+						className={
+							errors.name
+								? 'form__item form__item--error'
+								: 'form__item'
+						}>
+						<label className='form__label' htmlFor='categories'>
+							Categories
+						</label>
+						<select
+							id='categories'
+							value={category_id}
+							onChange={categoriesHandler}>
+							{categories &&
+								categories.map((category) => (
+									<option
+										key={category.id}
+										value={category.id}>
+										{category.name}
+									</option>
+								))}
+						</select>
+						<p className='text-error'>
+							{errors.name && errors.name}
+						</p>
+					</div>
+				</div>
+				<div className='form__flex'>
+					<div
+						className={
+							errors.name
+								? 'form__item form__item--error'
+								: 'form__item'
+						}>
+						<label className='form__label' htmlFor='description'>
+							Description
+						</label>
+						<textarea
+							onChange={descriptionHandler}
+							value={description}></textarea>
+						<p className='text-error'>
+							{errors.description && errors.description}
+						</p>
+					</div>
+					<div
+						className={
+							errors.name
+								? 'form__item form__item--error'
+								: 'form__item'
+						}>
+						<label className='form__label' htmlFor='amount'>
+							Amount
+						</label>
+						<input onChange={amountHandler} value={amount} />
+						<p className='text-error'>
+							{errors.amount && errors.amount}
+						</p>
+					</div>
+				</div>
+				<div className='form__flex'>
+					<div
+						className={
+							errors.name
+								? 'form__item form__item--error'
+								: 'form__item'
+						}>
+						<label className='form__label' htmlFor='cover_image'>
+							Cover image
+						</label>
+						<button
+							className='btn btn--success'
+							onClick={coverImageHandler}
+							value={cover_image}>
+							Add image
+						</button>
+						{cover_image && (
+							<p className='form__url'>{cover_image}</p>
+						)}
+						<p className='text-error'>
+							{errors.cover_image && errors.cover_image}
+						</p>
+					</div>
+					<div
+						className={
+							errors.name
+								? 'form__item form__item--error'
+								: 'form__item'
+						}>
+						<label className='form__label' htmlFor='author'>
+							Author
+						</label>
+						<input onChange={authorHandler} value={author} />
+						<p className='text-error'>
+							{errors.author && errors.author}
+						</p>
+					</div>
+				</div>
+				<div className='form__flex'>
+					<div className='form__item'>
+						<label className='form__label' htmlFor='status'>
+							Status
+						</label>
+						<select
+							name='status'
+							id='status'
+							value={status}
+							onChange={statusHandler}>
+							<option value={1}>Active</option>
+							<option value={0}>Inactive</option>
+						</select>
+					</div>
+				</div>
+				<button className='btn' onClick={onSubmit}>
+					Submit
+				</button>
+			</Form>
+		</AdminLayout>
+	);
 }

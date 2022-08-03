@@ -1,4 +1,10 @@
 .form {
+  &__url {
+    margin: 1rem 0;
+    padding: 1rem;
+    background: #b0f3ff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  }
   &__header {
     padding: 2rem;
     font-weight: bold;

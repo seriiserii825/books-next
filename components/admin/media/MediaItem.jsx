@@ -1,30 +1,27 @@
-import axios from 'axios';
 import React from 'react';
 
 export default function MediaItem(props) {
 	const server_url = process.env.NEXT_PUBLIC_SERVER_URL;
-	const { url, id, name, onDelete } = props;
+	const { url, id, name, onChoose } = props;
+	const [isActive, setIsActive] = React.useState(false);
+	const full_url = `${server_url}${url}`;
 
-	const deleteItem = (id) => {
-		let agree = window.confirm(
-			'Are you sure you want to delete this item?'
-		);
-		if (agree) {
-			axios
-				.delete('/media/' + id)
-				.then((res) => {
-					onDelete();
-				})
-				.catch((err) => {
-					console.log(err.response, 'err.response');
-				});
+	const toggleActive = () => {
+		if (isActive) {
+			setIsActive(false);
+			onChoose(full_url, true);
+		} else {
+			setIsActive(true);
+			onChoose(full_url, false);
 		}
 	};
 
+	const activeClass = isActive ? 'media__item active' : 'media__item';
+
 	return (
-		<div className='media__item' key={url} onClick={() => deleteItem(id)}>
+		<div className={activeClass} key={url} onClick={() => toggleActive()}>
 			<img
-				src={`${server_url}${url}`}
+				src={full_url}
 				width={100}
 				height={100}
 				alt='image'
