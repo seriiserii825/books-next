@@ -6,6 +6,7 @@ import styles from "../styles/Home.module.css";
 
 export default function Home() {
   const [categoryCount, setCategoryCount] = useState(0);
+  const [book_count, setBookCount] = useState(0);
   const getCategory = () => {
     axios
       .get("/category_count")
@@ -16,9 +17,23 @@ export default function Home() {
         console.log(err.response, "err.response");
       });
   };
+  function getBookCount(){
+    axios
+      .get("/book_count")
+      .then((res) => {
+        setBookCount(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err.response, "err.response");
+      });
+  }
   useEffect(() => {
     getCategory();
   }, [categoryCount]);
+
+  useEffect(() => {
+    getBookCount();
+  }, [book_count]);
   return (
     <AdminLayout>
       <div className={styles.container}>
@@ -29,6 +44,14 @@ export default function Home() {
               number={categoryCount}
               bg="green"
               link="/category"
+            />
+          </div>
+          <div className="admin-layout__item">
+            <AdminCard
+              title="Books"
+              number={book_count}
+              bg="blue"
+              link="/book"
             />
           </div>
         </div>
