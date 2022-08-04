@@ -8,6 +8,7 @@ import Link from 'next/link';
 import Preloader from '../../components/animation/Preloader';
 import { Transition, animated } from 'react-spring';
 import { Checkbox } from '../../components/admin/form/Checkbox';
+import TableHead from '../../components/admin/form/TableHead';
 
 export default function Index() {
 	const router = useRouter();
@@ -60,8 +61,7 @@ export default function Index() {
 				});
 		}
 	};
-	const sortTable = (field) => {
-		setLoading(true);
+	const sortTable = (field, sort_direction) => {
 		setSortDirection(sort_direction === 'asc' ? 'desc' : 'asc');
 		setSortField(field);
 	};
@@ -154,75 +154,37 @@ export default function Index() {
 								<thead>
 									<tr>
 										<th>Check</th>
-										<th>
-											<a
-												href='#'
-												onClick={() => sortTable('id')}>
-												#ID
-											</a>
-											{sort_direction === 'asc' ? (
-												<span>&uarr;</span>
-											) : (
-												<span>&darr;</span>
-											)}
-										</th>
-										<th>
-											<a
-												href='#'
-												onClick={() =>
-													sortTable('name')
-												}>
-												Name
-											</a>
-											{sort_direction === 'asc' ? (
-												<span>&uarr;</span>
-											) : (
-												<span>&darr;</span>
-											)}
-										</th>
-										<th>
-											<a
-												href='#'
-												onClick={() =>
-													sortTable('author')
-												}>
-												Name
-											</a>
-											{sort_direction === 'asc' ? (
-												<span>&uarr;</span>
-											) : (
-												<span>&darr;</span>
-											)}
-										</th>
+										<TableHead
+											label='ID'
+											field='id'
+											sort_direction={sort_direction}
+											sortTable={sortTable}
+										/>
+										<TableHead
+											label='Name'
+											field='name'
+											sort_direction={sort_direction}
+											sortTable={sortTable}
+										/>
+										<TableHead
+											label='Author'
+											field='author'
+											sort_direction={sort_direction}
+											sortTable={sortTable}
+										/>
 										<th> category </th>
-										<th>
-											<a
-												href='#'
-												onClick={() =>
-													sortTable('status')
-												}>
-												Status
-											</a>
-											{sort_direction === 'asc' ? (
-												<span>&uarr;</span>
-											) : (
-												<span>&darr;</span>
-											)}
-										</th>
-										<th>
-											<a
-												href='#'
-												onClick={() =>
-													sortTable('updated_at')
-												}>
-												Updated At
-											</a>
-											{sort_direction === 'asc' ? (
-												<span>&uarr;</span>
-											) : (
-												<span>&darr;</span>
-											)}
-										</th>
+										<TableHead
+											label='Status'
+											field='status'
+											sort_direction={sort_direction}
+											sortTable={sortTable}
+										/>
+										<TableHead
+											label='Updated At'
+											field='updated_at'
+											sort_direction={sort_direction}
+											sortTable={sortTable}
+										/>
 										<th>Action</th>
 									</tr>
 								</thead>

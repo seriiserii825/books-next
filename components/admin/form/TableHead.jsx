@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function TableHead(field, sort_direction, sortTable, label) {
+export default function TableHead({field, sort_direction, sortTable, label}) {
 	function clickHandler(e) {
 		e.preventDefault();
     sortTable(field, sort_direction);
@@ -8,7 +8,7 @@ export default function TableHead(field, sort_direction, sortTable, label) {
 
 	return (
 		<th>
-			<a href='#' onClick={() => clickHandler()}>
+			<a href='#' onClick={(e) => clickHandler(e)}>
 				{label}
 			</a>
 			{sort_direction === 'asc' ? (
