@@ -39,7 +39,9 @@
       }
     }
   }
-  input,
+  input[type="text"],
+  input[type="tel"],
+  input[type="email"],
   select,
   textarea {
     width: 100%;
@@ -47,6 +49,9 @@
     text-indent: 1rem;
     background: transparent;
     border-color: #ccc;
+  }
+  input[type="checkbox"] {
+    cursor: pointer;
   }
   textarea {
     padding: 1rem 0;

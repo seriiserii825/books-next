@@ -15,7 +15,7 @@ export default function Index() {
 	const [loading, setLoading] = useState(false);
 	const [data, setData] = useState([]);
 	const [sort_field, setSortField] = useState('updated_at');
-	const [sort_direction, setSortDirection] = useState('asc');
+	const [sort_direction, setSortDirection] = useState('desc');
 	const [search, setSearch] = useState('');
 
 	const getData = (
@@ -143,7 +143,7 @@ export default function Index() {
 						<button
 							className='btn btn--danger'
 							onClick={() => deleteChecked()}>
-							Delete all
+							Delete
 						</button>
 					</div>
 					{loading ? (

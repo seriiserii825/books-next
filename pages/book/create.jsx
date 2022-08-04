@@ -171,7 +171,7 @@ export default function Create() {
 						<label className='form__label' htmlFor='amount'>
 							Amount
 						</label>
-						<input onChange={amountHandler} value={amount} />
+						<input type="text" onChange={amountHandler} value={amount} />
 						<p className='text-error'>
 							{errors.amount && errors.amount}
 						</p>
@@ -209,7 +209,7 @@ export default function Create() {
 						<label className='form__label' htmlFor='author'>
 							Author
 						</label>
-						<input onChange={authorHandler} value={author} />
+						<input type="text" onChange={authorHandler} value={author} />
 						<p className='text-error'>
 							{errors.author && errors.author}
 						</p>
