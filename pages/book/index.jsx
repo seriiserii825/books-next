@@ -65,6 +65,7 @@ export default function Index() {
 		setSortDirection(sort_direction === 'asc' ? 'desc' : 'asc');
 		setSortField(field);
 	};
+
 	const formatDate = (date) => {
 		let options = {
 			year: 'numeric',
