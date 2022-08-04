@@ -2,10 +2,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useContext } from 'react';
 import { CustomContext } from '../context/Context';
-import { useRouter } from 'next/router';
 
 export default function AdminHeader() {
-	const router = useRouter();
 	const { toggleSidebar, setIsVisibleAdminMedia } = useContext(CustomContext);
 	const addMediaBtn = () => {
 		return (
