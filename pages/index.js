@@ -3,7 +3,6 @@ import AdminCard from "../components/admin/ui/AdminCard";
 import AdminLayout from "../layouts/AdminLayout";
 import axios from "axios";
 import styles from "../styles/Home.module.css";
-
 export default function Home() {
   const [categoryCount, setCategoryCount] = useState(0);
   const [book_count, setBookCount] = useState(0);
@@ -30,7 +29,6 @@ export default function Home() {
   useEffect(() => {
     getCategory();
   }, [categoryCount]);
-
   useEffect(() => {
     getBookCount();
   }, [book_count]);
