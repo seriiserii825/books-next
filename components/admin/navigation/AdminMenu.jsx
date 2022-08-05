@@ -22,9 +22,9 @@ export default function AdminMenu() {
 				items={[{ url: '/book/create' }, { url: '/book' }]}
 			/>
 			<AdminMenuItem
-				label='Users'
+				label='User'
 				icon='/svg/user.svg'
-				items={[{ url: '/' }, { url: '/' }]}
+				items={[{ url: '/user/create' }, { url: '/user' }]}
 			/>
 		</ul>
 	);
