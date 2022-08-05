@@ -6,7 +6,6 @@ import AdminTable from '../../components/admin/form/AdminTable';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Preloader from '../../components/animation/Preloader';
-import { Transition, animated } from 'react-spring';
 import { Checkbox } from '../../components/admin/form/Checkbox';
 import TableHead from '../../components/admin/form/TableHead';
 

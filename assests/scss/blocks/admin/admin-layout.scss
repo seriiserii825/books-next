@@ -21,7 +21,9 @@
     padding: 3rem;
   }
   &__wrap {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 25rem));
+    grid-gap: 3rem;
   }
   &__item {
     flex: 0 0 20rem;
