@@ -6,8 +6,6 @@ import AdminTable from '../../components/admin/form/AdminTable';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Preloader from '../../components/animation/Preloader';
-import { Transition, animated } from 'react-spring';
-import { Checkbox } from '../../components/admin/form/Checkbox';
 import TableHead from '../../components/admin/form/TableHead';
 
 export default function Index() {
@@ -86,23 +84,6 @@ export default function Index() {
 		setLoading(true);
 	};
 
-	const updateCheckStatus = (index) => {
-		setData(
-			data.map((item, currentIndex) =>
-				currentIndex === index
-					? { ...item, checked: !item.checked }
-					: item
-			)
-		);
-	};
-
-	const selectAll = () => {
-		setData(data.map((item) => ({ ...item, checked: true })));
-	};
-	const unSelectAll = () => {
-		setData(data.map((item) => ({ ...item, checked: false })));
-	};
-
 	function deleteChecked() {
 		const ids = data.filter((item) => item.checked).map((item) => item.id);
 		axios
@@ -132,16 +113,6 @@ export default function Index() {
 							onChange={searchHandler}
 						/>
 						<button
-							className='btn btn--success'
-							onClick={selectAll}>
-							Select All
-						</button>
-						<button
-							className='btn btn--success'
-							onClick={unSelectAll}>
-							Unselect All
-						</button>
-						<button
 							className='btn btn--danger'
 							onClick={() => deleteChecked()}>
 							Delete
@@ -154,7 +125,6 @@ export default function Index() {
 							<table>
 								<thead>
 									<tr>
-										<th>Check</th>
 										<TableHead
 											label='ID'
 											field='id'
@@ -196,21 +166,6 @@ export default function Index() {
 												);
 												return (
 													<tr key={item.id}>
-														<td>
-															<Checkbox
-																key={item.id}
-																isChecked={
-																	item.checked
-																}
-																checkHandler={() =>
-																	updateCheckStatus(
-																		index
-																	)
-																}
-																label={item.id}
-																index={index}
-															/>
-														</td>
 														<td>{item.id}</td>
 														<td>{item.name}</td>
 														<td>{item.author}</td>
