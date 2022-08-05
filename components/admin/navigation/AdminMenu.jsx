@@ -1,5 +1,3 @@
-import Image from 'next/image';
-import Link from 'next/link';
 import React from 'react';
 import AdminMenuItem from './AdminMenuItem';
 
@@ -22,9 +20,9 @@ export default function AdminMenu() {
 				items={[{ url: '/book/create' }, { url: '/book' }]}
 			/>
 			<AdminMenuItem
-				label='User'
+				label='Client'
 				icon='/svg/user.svg'
-				items={[{ url: '/user/create' }, { url: '/user' }]}
+				items={[{ url: '/client/create' }, { url: '/client' }]}
 			/>
 		</ul>
 	);

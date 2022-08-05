@@ -25,7 +25,7 @@ export default function Index() {
 	) => {
 		axios
 			.get(
-				'/user?sort_field=' +
+				'/client?sort_field=' +
 					sort_field +
 					'&sort_direction=' +
 					sort_direction +
@@ -34,6 +34,7 @@ export default function Index() {
 			)
 			.then((res) => {
 				let result = res.data.data.reverse();
+				console.log(result, 'result');
 				result = result.map((item) => {
 					item.checked = false;
 					return item;
@@ -52,7 +53,7 @@ export default function Index() {
 		);
 		if (confirmDelete) {
 			axios
-				.delete('/user/' + id)
+				.delete('/client/' + id)
 				.then((res) => {
 					window.location = router.pathname;
 				})
@@ -105,7 +106,7 @@ export default function Index() {
 	function deleteChecked() {
 		const ids = data.filter((item) => item.checked).map((item) => item.id);
 		axios
-			.delete('/user_destroy_many/' + [...ids])
+			.delete('/client_destroy_many/' + [...ids])
 			.then((res) => {
 				window.location = router.pathname;
 			})
@@ -121,7 +122,7 @@ export default function Index() {
 
 	return (
 		<AdminLayout>
-			<Form label='List users'>
+			<Form label='List clients'>
 				<AdminTable>
 					<div className='search'>
 						<label htmlFor='search'>Search:</label>
@@ -172,7 +173,6 @@ export default function Index() {
 											sort_direction={sort_direction}
 											sortTable={sortTable}
 										/>
-										<th> category </th>
 										<TableHead
 											label='Status'
 											field='status'
@@ -215,9 +215,6 @@ export default function Index() {
 														<td>{item.name}</td>
 														<td>{item.author}</td>
 														<td>
-															{item.category.name}
-														</td>
-														<td>
 															<span
 																className={
 																	item.status ===
@@ -232,7 +229,7 @@ export default function Index() {
 														<td>
 															<Link
 																href={
-																	`/user/` +
+																	`/client/` +
 																	item.id
 																}>
 																<a className='btn btn--success'>
