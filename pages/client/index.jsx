@@ -138,8 +138,8 @@ export default function Index() {
 											sortTable={sortTable}
 										/>
 										<TableHead
-											label='Author'
-											field='author'
+											label='Email'
+											field='email'
 											sort_direction={sort_direction}
 											sortTable={sortTable}
 										/>
@@ -168,7 +168,7 @@ export default function Index() {
 													<tr key={item.id}>
 														<td>{item.id}</td>
 														<td>{item.name}</td>
-														<td>{item.author}</td>
+														<td>{item.email}</td>
 														<td>
 															<span
 																className={

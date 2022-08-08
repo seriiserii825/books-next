@@ -1,282 +1,218 @@
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import React, {useEffect, useState} from 'react';
+import {useRouter} from 'next/router';
 import Form from '../../components/admin/form/Form';
 import AdminLayout from '../../layouts/AdminLayout';
 import axios from 'axios';
-import Media from '../../components/admin/media/Media';
 
 export default function Create() {
-	const router = useRouter();
-	const [id, setId] = useState(null);
-	const [errors, setErrors] = useState([]);
-	const [showMedia, setShowMedia] = useState(false);
-	const [name, setName] = useState('');
-	const [categories, setCategories] = useState([]);
-	const [category_id, setCategoryId] = useState('');
-	const [description, setDescription] = useState('');
-	const [amount, setAmount] = useState('');
-	const [cover_image, setCoverImage] = useState('');
-	const [media_images, setMediaImages] = useState([]);
-	const [author, setAuthor] = useState('');
-	const [status, setStatus] = useState(1);
+    const router = useRouter();
+    const [id, setId] = useState(null);
+    const [errors, setErrors] = useState([]);
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [mobile_number, setMobileNumber] = useState('');
+    const [gender, setGender] = useState('male');
+    const [address, setAddress] = useState('');
+    const [status, setStatus] = useState(1);
 
-	const getItem = () => {
-		axios
-			.get('/book/' + id)
-			.then((res) => {
-				const {
-					name,
-					category_id,
-					description,
-					amount,
-					cover_image,
-					author,
-					status,
-				} = res.data.data;
-				setName(name);
-				setCategoryId(category_id);
-				setDescription(description);
-				setAmount(amount);
-				setCoverImage(cover_image);
-				setAuthor(author);
-				setStatus(status);
-			})
-			.catch((err) => {
-				if (err.response.data && err.response.data.errors) {
-					setErrors(err.response.data.errors);
-				}
-			});
-	};
+    const nameHandler = (e) => {
+        setName(e.target.value);
+    };
+    const emailHandler = (e) => {
+        setEmail(e.target.value);
+    };
+    const mobileNumberHandler = (e) => {
+        setMobileNumber(e.target.value);
+    };
+    const genderHandler = (e) => {
+        setGender(e.target.value);
+    };
+    const addressHandler = (e) => {
+        setAddress(e.target.value);
+    };
+    const statusHandler = (e) => {
+        setStatus(e.target.value);
+    };
 
-	useEffect(() => {
-		if (router.isReady) {
-			setId(router.query.id);
-			if (id) {
-				getItem();
-			}
-		}
-	}, [router.isReady, id]);
+    const getItem = () => {
+        axios
+            .get('/client/' + id)
+            .then((res) => {
+                const {
+                    name,
+                    email,
+                    mobile_number,
+                    gender,
+                    address,
+                    status,
+                } = res.data.data;
+                setName(name);
+                setEmail(email);
+                setMobileNumber(mobile_number);
+                setGender(gender);
+                setAddress(address);
+                setStatus(status);
+            })
+            .catch((err) => {
+                if (err.response.data && err.response.data.errors) {
+                    setErrors(err.response.data.errors);
+                }
+            });
+    }
 
-	const nameHandler = (e) => {
-		setName(e.target.value);
-	};
-	const categoriesHandler = (e) => {
-		setCategoryId(e.target.value);
-	};
-	const descriptionHandler = (e) => {
-		setDescription(e.target.value);
-	};
-	const amountHandler = (e) => {
-		setAmount(e.target.value);
-	};
-	const coverImageHandler = (e) => {
-		document.body.style.overflow = 'hidden';
-		setShowMedia(true);
-	};
-	const authorHandler = (e) => {
-		setAuthor(e.target.value);
-	};
-	const statusHandler = (e) => {
-		setStatus(e.target.value);
-	};
+    useEffect(() => {
+        if (router.isReady) {
+            setId(router.query.id);
+            console.log(id, 'id')
+            if (id) {
+                getItem();
+            }
+        }
+    }, [router.isReady, id]);
 
-	const closeMedia = () => {
-		document.body.style.overflow = 'initial';
-		setShowMedia(false);
-	};
+    const onSubmit = (e) => {
+        e.preventDefault();
+        const data = {
+            name,
+            email,
+            mobile_number,
+            gender,
+            address,
+            status,
+        };
+        axios
+            .put('/client/'+id, data)
+            .then((res) => {
+                router.push('/client');
+            })
+            .catch((err) => {
+                if (err.response.data && err.response.data.errors) {
+                    setErrors(err.response.data.errors);
+                }
+            });
+    };
 
-	const onSubmit = (e) => {
-		e.preventDefault();
-		const data = {
-			name,
-			category_id,
-			description,
-			amount: parseInt(amount),
-			cover_image,
-			author,
-			status,
-		};
-		axios
-			.put('/book/' + id, data)
-			.then((res) => {
-				router.push('/book');
-			})
-			.catch((err) => {
-				if (err.response.data && err.response.data.errors) {
-					setErrors(err.response.data.errors);
-				}
-			});
-	};
-
-	let getBooks = () => {
-		axios
-			.get('/book_create')
-			.then((res) => {
-				setCategories(res.data.categories);
-			})
-			.catch((err) => {
-				console.log(err, 'er');
-			});
-	};
-
-	useEffect(() => {
-		getBooks();
-	}, []);
-
-	useEffect(() => {
-		setCoverImage(media_images[0]);
-	}, [media_images]);
-
-	return (
-		<AdminLayout>
-			{showMedia && (
-				<Media onClose={() => closeMedia()} onImages={setMediaImages} />
-			)}
-			<Form label='Edit Book'>
-				<div className='form__flex'>
-					<div
-						className={
-							errors.name
-								? 'form__item form__item--error'
-								: 'form__item'
-						}>
-						<label className='form__label' htmlFor='name'>
-							Name
-						</label>
-						<input
-							onChange={nameHandler}
-							type='text'
-							placeholder='Enter name...'
-							value={name}
-						/>
-						<p className='text-error'>
-							{errors.name && errors.name}
-						</p>
-					</div>
-					<div
-						className={
-							errors.name
-								? 'form__item form__item--error'
-								: 'form__item'
-						}>
-						<label className='form__label' htmlFor='categories'>
-							Categories
-						</label>
-						<select
-							id='categories'
-							value={category_id}
-							onChange={categoriesHandler}>
-							{categories &&
-								categories.map((category) => (
-									<option
-										key={category.id}
-										value={category.id}>
-										{category.name}
-									</option>
-								))}
-						</select>
-						<p className='text-error'>
-							{errors.category_id && errors.category_id}
-						</p>
-					</div>
-				</div>
-				<div className='form__flex'>
-					<div
-						className={
-							errors.name
-								? 'form__item form__item--error'
-								: 'form__item'
-						}>
-						<label className='form__label' htmlFor='description'>
-							Description
-						</label>
-						<textarea
-							onChange={descriptionHandler}
-							value={description}></textarea>
-						<p className='text-error'>
-							{errors.description && errors.description}
-						</p>
-					</div>
-					<div
-						className={
-							errors.name
-								? 'form__item form__item--error'
-								: 'form__item'
-						}>
-						<label className='form__label' htmlFor='amount'>
-							Amount
-						</label>
-						<input
-							type='text'
-							onChange={amountHandler}
-							value={amount}
-						/>
-						<p className='text-error'>
-							{errors.amount && errors.amount}
-						</p>
-					</div>
-				</div>
-				<div className='form__flex'>
-					<div
-						className={
-							errors.name
-								? 'form__item form__item--error'
-								: 'form__item'
-						}>
-						<label className='form__label' htmlFor='cover_image'>
-							Cover image
-						</label>
-						<button
-							className='btn btn--success'
-							onClick={coverImageHandler}
-							value={cover_image}>
-							Add image
-						</button>
-						{cover_image && (
-							<p className='form__url'>{cover_image}</p>
-						)}
-						<p className='text-error'>
-							{errors.cover_image && errors.cover_image}
-						</p>
-					</div>
-					<div
-						className={
-							errors.name
-								? 'form__item form__item--error'
-								: 'form__item'
-						}>
-						<label className='form__label' htmlFor='author'>
-							Author
-						</label>
-						<input
-							type='text'
-							onChange={authorHandler}
-							value={author}
-						/>
-						<p className='text-error'>
-							{errors.author && errors.author}
-						</p>
-					</div>
-				</div>
-				<div className='form__flex'>
-					<div className='form__item'>
-						<label className='form__label' htmlFor='status'>
-							Status
-						</label>
-						<select
-							name='status'
-							id='status'
-							value={status}
-							onChange={statusHandler}>
-							<option value={1}>Active</option>
-							<option value={0}>Inactive</option>
-						</select>
-					</div>
-				</div>
-				<button className='btn' onClick={onSubmit}>
-					Submit
-				</button>
-			</Form>
-		</AdminLayout>
-	);
+    return (
+        <AdminLayout>
+            <Form label='Add Client'>
+                <div className='form__flex'>
+                    <div
+                        className={
+                            errors.name
+                                ? 'form__item form__item--error'
+                                : 'form__item'
+                        }>
+                        <label className='form__label' htmlFor='name'>
+                            Name
+                        </label>
+                        <input
+                            onChange={nameHandler}
+                            type='text'
+                            placeholder='Enter name...'
+                            value={name}
+                        />
+                        <p className='text-error'>
+                            {errors.name && errors.name}
+                        </p>
+                    </div>
+                    <div
+                        className={
+                            errors.email
+                                ? 'form__item form__item--error'
+                                : 'form__item'
+                        }>
+                        <label className='form__label' htmlFor='email'> Email </label>
+                        <input
+                            onChange={emailHandler}
+                            type='email'
+                            placeholder='Enter email...'
+                            value={email}
+                        />
+                        <p className='text-error'>
+                            {errors.email && errors.email}
+                        </p>
+                    </div>
+                </div>
+                <div className={'form__flex'}>
+                    <div
+                        className={
+                            errors.mobile_number
+                                ? 'form__item form__item--error'
+                                : 'form__item'
+                        }>
+                        <label className='form__label' htmlFor='mobile_number'>
+                            Mobile Number
+                        </label>
+                        <input
+                            onChange={mobileNumberHandler}
+                            type='text'
+                            placeholder='Enter mobile_number...'
+                            value={mobile_number}
+                        />
+                        <p className='text-error'>
+                            {errors.mobile_number && errors.mobile_number}
+                        </p>
+                    </div>
+                    <div
+                        className={
+                            errors.gender
+                                ? 'form__item form__item--error'
+                                : 'form__item'
+                        }>
+                        <label className='form__label' htmlFor='gender'>
+                            Gender
+                        </label>
+                        <select
+                            name='gender'
+                            id='gender'
+                            value={gender}
+                            onChange={genderHandler}>
+                            <option value={'male'}>Male</option>
+                            <option value={'female'}>Female</option>
+                        </select>
+                        <p className='text-error'>
+                            {errors.gender && errors.gender}
+                        </p>
+                    </div>
+                </div>
+                <div className="form__flex">
+                    <div
+                        className={
+                            errors.address
+                                ? 'form__item form__item--error'
+                                : 'form__item'
+                        }>
+                        <label className='form__label' htmlFor='address'>
+                            Address
+                        </label>
+                        <textarea name="" id="" cols="30" rows="10"
+                                  onChange={addressHandler}
+                                  placeholder='Enter address...'
+                                  value={address}
+                        ></textarea>
+                        <p className='text-error'>
+                            {errors.address && errors.address}
+                        </p>
+                    </div>
+                    <div className='form__item'>
+                        <label className='form__label' htmlFor='status'>
+                            Status
+                        </label>
+                        <select
+                            name='status'
+                            id='status'
+                            value={status}
+                            onChange={statusHandler}>
+                            <option value={1}>Active</option>
+                            <option value={0}>Inactive</option>
+                        </select>
+                    </div>
+                </div>
+                <button className='btn' onClick={onSubmit}>
+                    Submit
+                </button>
+            </Form>
+        </AdminLayout>
+    );
 }
+
