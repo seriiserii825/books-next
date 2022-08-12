@@ -112,11 +112,6 @@ export default function Index() {
 							value={search}
 							onChange={searchHandler}
 						/>
-						<button
-							className='btn btn--danger'
-							onClick={() => deleteChecked()}>
-							Delete
-						</button>
 					</div>
 					{loading ? (
 						<Preloader />

@@ -35,7 +35,7 @@ export default function MediaTableItem({
 				/>
 			</td>
 			<td>{name}</td>
-			<td>{formatDate(created_at)}</td>
+			<td>{url}</td>
 			<td>
 				<button
 					className='btn btn--danger'

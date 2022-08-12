@@ -24,6 +24,11 @@ export default function AdminMenu() {
 				icon='/svg/user.svg'
 				items={[{ url: '/client/create' }, { url: '/client' }]}
 			/>
+			<AdminMenuItem
+				label='Issue Book'
+				icon='/svg/user.svg'
+				items={[{ url: '/issue-book/create' }, { url: '/issue-book' }]}
+			/>
 		</ul>
 	);
 }
