@@ -23,6 +23,7 @@ export default function Create() {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    setErrorMessage("");
     const data = {
       category_id,
       book_id,
@@ -116,7 +117,7 @@ export default function Create() {
 
   return (
     <AdminLayout>
-      <Form label="Add Issue Book">
+      <Form label="Add Issue Book" error_message={error_message}>
         <div className="form__flex">
           <div className="form__item">
             <label className="form__label" htmlFor="category_id">
@@ -199,7 +200,6 @@ export default function Create() {
             </select>
           </div>
         </div>
-        {error_message && <div className="alert">{error_message}</div>}
         <button className="btn" onClick={onSubmit}>
           Submit
         </button>

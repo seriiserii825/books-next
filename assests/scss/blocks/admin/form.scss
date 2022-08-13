@@ -12,6 +12,10 @@
     background: $accent;
     border-top-left-radius: 2rem;
     border-top-right-radius: 2rem;
+    &.form__header--error {
+      color: white;
+      background: red;
+    }
   }
   &__body {
     padding: 2rem;
@@ -94,3 +98,4 @@
     }
   }
 }
+
