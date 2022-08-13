@@ -35,8 +35,7 @@ export default function Create() {
     axios
       .post("/issue-book", data)
       .then((res) => {
-        console.log(res, "res");
-        // router.push("/category");
+        router.push("/issue-book");
       })
       .catch((err) => {
         console.log(err.response.data.message, "err.response.data.message");

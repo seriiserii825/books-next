@@ -7,31 +7,18 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Preloader from "../../components/animation/Preloader";
 import { Transition, animated } from "react-spring";
-import formatDate from '../../helpers/format-date';
+import formatDate from "../../helpers/format-date";
 
 export default function Index() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
-  const [sort_field, setSortField] = useState("updated_at");
-  const [sort_direction, setSortDirection] = useState("asc");
-  const [search, setSearch] = useState("");
 
-  const getData = (
-    sort_field = "updated_at",
-    sort_direction = "asc",
-    search = ""
-  ) => {
+  const getData = () => {
     axios
-      .get(
-        "/category?sort_field=" +
-          sort_field +
-          "&sort_direction=" +
-          sort_direction +
-          "&search=" +
-          search
-      )
+      .get("/issue-book")
       .then((res) => {
+        console.log(res.data.data, "res.data.data");
         setData(res.data.data.reverse());
         setLoading(false);
       })
@@ -46,7 +33,7 @@ export default function Index() {
     );
     if (confirmDelete) {
       axios
-        .delete("/category/" + id)
+        .delete("/issue-book/" + id)
         .then((res) => {
           window.location = router.pathname;
         })
@@ -55,30 +42,16 @@ export default function Index() {
         });
     }
   };
-  const sortTable = (field) => {
-    setLoading(true);
-    setSortDirection(sort_direction === "asc" ? "desc" : "asc");
-    setSortField(field);
-  };
-
-  const searchHandler = (e) => {
-    setSearch(e.target.value);
-    setLoading(true);
-  };
 
   useEffect(() => {
     setLoading(true);
-    getData(sort_field, sort_direction, search);
-  }, [sort_field, sort_direction, search]);
+    getData();
+  }, []);
 
   return (
     <AdminLayout>
       <Form label="List Categories">
         <AdminTable>
-          <div className="search">
-            <label htmlFor="search">Search:</label>
-            <input type="text" value={search} onChange={searchHandler} />
-          </div>
           {loading ? (
             <Preloader />
           ) : (
@@ -96,74 +69,32 @@ export default function Index() {
                       <table>
                         <thead>
                           <tr>
-                            <th>
-                              <a href="#" onClick={() => sortTable("id")}>
-                                #ID
-                              </a>
-                              {sort_direction === "asc" ? (
-                                <span>&uarr;</span>
-                              ) : (
-                                <span>&darr;</span>
-                              )}
-                            </th>
-                            <th>
-                              <a href="#" onClick={() => sortTable("name")}>
-                                Name
-                              </a>
-                              {sort_direction === "asc" ? (
-                                <span>&uarr;</span>
-                              ) : (
-                                <span>&darr;</span>
-                              )}
-                            </th>
-                            <th>
-                              <a href="#" onClick={() => sortTable("status")}>
-                                Status
-                              </a>
-                              {sort_direction === "asc" ? (
-                                <span>&uarr;</span>
-                              ) : (
-                                <span>&darr;</span>
-                              )}
-                            </th>
-                            <th>
-                              <a
-                                href="#"
-                                onClick={() => sortTable("updated_at")}
-                              >
-                                Updated At
-                              </a>
-                              {sort_direction === "asc" ? (
-                                <span>&uarr;</span>
-                              ) : (
-                                <span>&darr;</span>
-                              )}
-                            </th>
+                            <th>Id</th>
+                            <th>Category</th>
+                            <th>Book</th>
+                            <th>User info</th>
+                            <th>Total days</th>
+                            <th>Issue Date</th>
                             <th>Action</th>
                           </tr>
                         </thead>
                         <tbody>
                           {data.length
                             ? data.map((item, index) => {
-                                let updated_at = formatDate(item.updated_at);
+                                let created_at = formatDate(item.created_at);
                                 return (
                                   <tr key={item.id}>
                                     <td>{item.id}</td>
-                                    <td>{item.name}</td>
+                                    <td>{item.category}</td>
+                                    <td>{item.book}</td>
                                     <td>
-                                      <span
-                                        className={
-                                          item.status === 1
-                                            ? "badge badge--success"
-                                            : "badge badge--danger"
-                                        }
-                                      >
-                                        {item.status}
-                                      </span>
+                                      <span>{item.client_name}</span>
+                                      <span>{item.client_email}</span>
                                     </td>
-                                    <td>{updated_at}</td>
+                                    <td>{item.days_issued} days</td>
+                                    <td>{created_at}</td>
                                     <td>
-                                      <Link href={`/category/` + item.id}>
+                                      <Link href={`/issue-book/` + item.id}>
                                         <a className="btn btn--success">Edit</a>
                                       </Link>
                                       <button
