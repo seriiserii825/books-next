@@ -13,7 +13,7 @@ body {
   font-family: Roboto, sans-serif;
   font-size: 1.6rem;
   color: $text-color;
-  background: #F3F5F9;
+  background: #f3f5f9;
   &::after {
     content: "";
     position: absolute;
@@ -121,4 +121,10 @@ a {
   padding-top: 0.5rem;
   font-size: 1.4rem;
   color: red;
+}
+.alert {
+  display: table;
+  margin: 2rem 0;
+  padding: 1rem 2rem;
+  border: 1px solid red;
 }
