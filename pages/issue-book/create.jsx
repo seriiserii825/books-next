@@ -10,6 +10,7 @@ export default function Create() {
   const [categories, setCategories] = useState([]);
   const [category_id, setCategoryId] = useState("");
   const [book_id, setBookId] = useState("");
+  const [books, setBooks] = useState([]);
   const [user_id, setUserId] = useState("");
   const [days_issued, setDaysIssued] = useState("");
 
@@ -45,8 +46,20 @@ export default function Create() {
       });
   }
 
+  function getBooks() {
+    setBooks([]);
+    axios
+      .get("/book_by_category?category_id=" + category_id)
+      .then((res) => {
+        console.log(res.data.data, "res");
+      })
+      .catch((err) => {
+        console.log(err, "err");
+      });
+  }
+
   useEffect(() => {
-    console.log(category_id, "category_id");
+    getBooks();
   }, [category_id]);
 
   useEffect(() => {
@@ -68,7 +81,11 @@ export default function Create() {
               onChange={categoryHandler}
             >
               {categories.map((item) => {
-                return <option value={item.id} key={item.id}>{item.name}</option>;
+                return (
+                  <option value={item.id} key={item.id}>
+                    {item.name}
+                  </option>
+                );
               })}
             </select>
           </div>
