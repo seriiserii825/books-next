@@ -35,6 +35,12 @@ export default function AdminMenu() {
         icon="/svg/user.svg"
         items={[{ url: "/issue-book/create" }, { url: "/issue-book" }]}
       />
+      <AdminMenuItem
+        label="Return Book"
+        paths={["/return-book", "/return-book/create"]}
+        icon="/svg/user.svg"
+        items={[{ url: "/return-book/create" }, { url: "/return-book" }]}
+      />
     </ul>
   );
 }
