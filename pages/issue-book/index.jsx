@@ -18,7 +18,7 @@ export default function Index() {
     axios
       .get("/issue-book")
       .then((res) => {
-        console.log(res.data.data, "res.data.data");
+        // console.log(res.data.data, "res.data.data");
         setData(res.data.data.reverse());
         setLoading(false);
       })
@@ -94,9 +94,6 @@ export default function Index() {
                                     <td>{item.days_issued} days</td>
                                     <td>{created_at}</td>
                                     <td>
-                                      <Link href={`/issue-book/` + item.id}>
-                                        <a className="btn btn--success">Edit</a>
-                                      </Link>
                                       <button
                                         className="btn btn--danger"
                                         onClick={() => deleteItem(item.id)}

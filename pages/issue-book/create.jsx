@@ -67,7 +67,7 @@ export default function Create() {
 
   function getCategory() {
     axios
-      .get("/category")
+      .get("/category_by_status")
       .then((res) => {
         setCategories(res.data.data);
         setCategoryId(res.data.data[0].id);
@@ -92,7 +92,7 @@ export default function Create() {
 
   function getClients() {
     axios
-      .get("/client")
+      .get("/client_by_status")
       .then((res) => {
         setClients(res.data.data);
         setClientId(res.data.data[0].id);
